@@ -11,7 +11,9 @@ using Serilog;
 
 namespace aspnetapp.Controllers
 {
-    public class HomeController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class HomeController : ControllerBase
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -20,21 +22,36 @@ namespace aspnetapp.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public ActionResult<IEnumerable<string>> Get()
         {
-            return View();
+            Log.Information("All values called");
+            return new string[] { "value1", "value2" };
         }
 
-        public IActionResult Privacy()
+        // GET api/values/5
+        [HttpGet("{id}")]
+        public ActionResult<string> Get(int id)
         {
-            Log.Information("Privacy API called");
-            return View();
+            return "value";
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        // POST api/values
+        [HttpPost]
+        public void Post([FromBody] string value)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        // PUT api/values/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
+
+        // DELETE api/values/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
         }
     }
 }
