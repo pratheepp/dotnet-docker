@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using aspnetapp.Models;
 
+using Serilog;
+
 namespace aspnetapp.Controllers
 {
     public class HomeController : Controller
@@ -25,6 +27,7 @@ namespace aspnetapp.Controllers
 
         public IActionResult Privacy()
         {
+            Log.Information("Privacy API called");
             return View();
         }
 
