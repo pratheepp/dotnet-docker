@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Serilog;
 
+using aspnetapp.Models;
 namespace aspnetapp.Controllers
 {
     [Route("api/[controller]")]
@@ -28,7 +31,19 @@ namespace aspnetapp.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
+        [HttpGet("data")]
+        public ActionResult<DataHolder> GetData()
+        {
+            DataHolder data = new DataHolder();
+            data.FirstName = "Avani";
+            data.LastName = "Prathee";
+            data.Age = 16;
+            data.Active = true;
+
+            return data;
+        }
+
+        // GET api/home/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
